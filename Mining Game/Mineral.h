@@ -11,6 +11,7 @@ class Mineral {
 public:
 	sf::Color color_;
 	double xp_;
+	int timer_multiplier_;
 	Mineral();
 	virtual ~Mineral() = default;
 };

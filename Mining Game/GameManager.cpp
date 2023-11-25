@@ -48,7 +48,7 @@ void GameManager::update() {
 		}
 		if(i->mined_) {
 			i->timer_ ++;
-			if(i->timer_ >= 5 / delta_time_ * 5) {
+			if(i->timer_ >= i->mineral_.timer_multiplier_ / delta_time_ * 5) {
 				i->mineral_tile_.setFillColor(i->mineral_.color_);
 				i->mined_ = false;
 				i->timer_ = 0;
