@@ -31,7 +31,6 @@ void Player::update(const float dt) {
 		}
 }
 
-
 bool Player::collision(const sf::RectangleShape& mineral) {
 		if(p_position_.x < mineral.getPosition().x + mineral.getSize().x &&
 			p_position_.x + player_.getSize().x > mineral.getPosition().x &&
@@ -42,3 +41,4 @@ bool Player::collision(const sf::RectangleShape& mineral) {
 		}
 		return false;
 }
+

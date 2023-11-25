@@ -43,9 +43,8 @@ void GameManager::update() {
 			m_time_ = update_clock_.restart();
 			i->mineral_tile_.setFillColor(sf::Color::Red);
 			guy_.xp_ += i->mineral_.xp_;
-			std::cout << guy_.xp_ << "\n";
+			std::cout << guy_.xp_ << " / " << guy_.next_level_ << "\n"	;
 			i->mined_ = true;
-			guy_.mineral_inventory_.emplace_back(i->mineral_);
 		}
 		if(i->mined_) {
 			i->timer_ ++;
@@ -54,9 +53,6 @@ void GameManager::update() {
 				i->mined_ = false;
 				i->timer_ = 0;
 			}
-		}
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::J)) {
-			std::cout << "Inventory size: " << guy_.mineral_inventory_.size() << "\n";
 		}
 	}
 }

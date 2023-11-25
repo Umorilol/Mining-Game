@@ -2,7 +2,6 @@
 #include <SFML/Graphics.hpp>
 #include "Mineral.h"
 
-
 class MineralTile {
 public:
 	sf::RectangleShape mineral_tile_;
