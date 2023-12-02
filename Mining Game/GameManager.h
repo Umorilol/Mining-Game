@@ -1,6 +1,8 @@
 #pragma once
 #include<SFML\Graphics.hpp>
 #include<SFML\System.hpp>
+#include<fstream>
+#include<iostream>
 #include"Mineral.h"
 #include"Player.h"
 #include"MineralTile.h"
@@ -15,12 +17,15 @@ public:
 	sf::Time m_time_ = sf::seconds(0.f);
 	sf::Time m_timer_ = sf::seconds(5.f);
 
+	int map_array_[8][33];
+
 	Player guy_;
 	sf::Vector2f mineral_position_;
 	std::vector<std::unique_ptr<MineralTile>> mineral_vector_;
 
 	GameManager();
 	void setup(sf::RenderWindow* window);
+	void fill_map();
 	void GameLoop();
 	void update();
 	void draw(sf::RenderWindow*) const;
