@@ -17,7 +17,9 @@ public:
 	sf::Time m_time_ = sf::seconds(0.f);
 	sf::Time m_timer_ = sf::seconds(5.f);
 
-	int map_array_[8][33];
+	// Map
+	std::ifstream map_file_;
+	char map_array_[8][34];
 
 	Player guy_;
 	sf::Vector2f mineral_position_;
