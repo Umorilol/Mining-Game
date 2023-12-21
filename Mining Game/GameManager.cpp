@@ -28,7 +28,6 @@ void GameManager::GameLoop() {
 
 			if ( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape )
 				window_->close();
-			hud_.Update(event);
 		}
 		delta_time_ = clock_.restart().asSeconds();
 		update();
@@ -38,7 +37,8 @@ void GameManager::GameLoop() {
 
 void GameManager::update() {
 	guy_.update(delta_time_);
-
+	view_.setCenter(guy_.p_position_);
+	hud_.Update(view_);
 	for(auto& i : mineral_vector_) {
 		if(guy_.collision(i->mineral_tile_) && sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !i->mined_) {
 			m_time_ = update_clock_.restart();
@@ -60,6 +60,7 @@ void GameManager::update() {
 
 void GameManager::draw(sf::RenderWindow* window) const {
 	window->clear();
+	window->setView(view_);
 	//Minerals
 	for(auto& i : mineral_vector_) {
 		window->draw(i->mineral_tile_);

@@ -13,11 +13,15 @@ void Ui::Initialize() {
 	else {
 		skills_sprite_.setTexture(skills_tex_);
 		std::cout << "Inventory texture loaded: " << "\n";
+		
 	}
-	skills_sprite_.setPosition(600 - skills_sprite_.getGlobalBounds().width, 400 - skills_sprite_.getGlobalBounds().height);
+	skills_sprite_.setPosition(0,0);
 }
 
-void Ui::Update(sf::Event event) {
-	if ( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::K )
-		skills_shown_ = !skills_shown_;
+void Ui::Update(sf::View& view) {
+	//if ( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::K )
+		//skills_shown_ = !skills_shown_;
+
+	skills_sprite_.setPosition(view.getCenter().x + 100.f, view.getCenter().y + 20.f);
+	//skills_sprite_.setPosition(view.getCenter());
 }
