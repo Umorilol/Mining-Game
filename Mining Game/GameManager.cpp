@@ -28,6 +28,7 @@ void GameManager::GameLoop() {
 
 			if ( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape )
 				window_->close();
+			hud_.Update(event);
 		}
 		delta_time_ = clock_.restart().asSeconds();
 		update();
@@ -65,6 +66,11 @@ void GameManager::draw(sf::RenderWindow* window) const {
 	}
 	//Player
 	window->draw(guy_.player_);
+
+	//UI
+	if(hud_.skills_shown_ == true) {
+		window->draw(hud_.skills_sprite_);
+	}
 
 	window->display();
 }
