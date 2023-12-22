@@ -33,7 +33,7 @@ void GameManager::GameLoop() {
 
 void GameManager::update() {
 	guy_->update(delta_time_);
-	view_.setCenter(guy_->pl_position_);
+	view_.setCenter(sf::Vector2f(guy_->pl_position_.x + (guy_->pl_sprite_.getGlobalBounds().width / 2), guy_->pl_position_.y + (guy_->pl_sprite_.getGlobalBounds().height / 2)));
 	hud_->Update(view_);
 	for(auto& i : mineral_vector_) {
 		if(guy_->collision(i->mineral_tile_) && sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !i->mined_) {
