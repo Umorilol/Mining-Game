@@ -4,7 +4,6 @@
 class Ui
 {
 public:
-	
 	sf::Texture skills_tex_;
 	sf::Sprite skills_sprite_;
 	bool skills_shown_ {false};

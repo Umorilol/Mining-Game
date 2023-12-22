@@ -5,8 +5,9 @@
 class Player
 {
 public:
-	sf::RectangleShape player_;
-	sf::Vector2f p_position_;
+	sf::Texture pl_texture_;
+	sf::Sprite pl_sprite_;
+	sf::Vector2f pl_position_;
 	float xp_;
 	int level_;
 	float next_level_;

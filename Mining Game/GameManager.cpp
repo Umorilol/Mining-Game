@@ -7,7 +7,7 @@ void GameManager::setup(sf::RenderWindow* window) {
 	guy_ = new Player();
 	hud_ = new Ui();
 	srand(time(nullptr));
-	guy_->player_.setPosition(50.f, 50.f);
+	guy_->pl_sprite_.setPosition(50.f, 50.f);
 	Coal coal;
 	Iron iron;
 	std::vector<Mineral> mineral_vector;
@@ -33,7 +33,7 @@ void GameManager::GameLoop() {
 
 void GameManager::update() {
 	guy_->update(delta_time_);
-	view_.setCenter(guy_->p_position_);
+	view_.setCenter(guy_->pl_position_);
 	hud_->Update(view_);
 	for(auto& i : mineral_vector_) {
 		if(guy_->collision(i->mineral_tile_) && sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !i->mined_) {
@@ -62,7 +62,7 @@ void GameManager::draw(sf::RenderWindow* window) const {
 		window->draw(i->mineral_tile_);
 	}
 	//Player
-	window->draw(guy_->player_);
+	window->draw(guy_->pl_sprite_);
 
 	//UI
 	if(hud_->skills_shown_ == true) {

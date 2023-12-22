@@ -1,5 +1,4 @@
 #include"Ui.h"
-
 #include <iostream>
 
 Ui::Ui() {

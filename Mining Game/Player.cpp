@@ -1,28 +1,34 @@
 #include"Player.h"
 
 Player::Player() {
-		p_position_ = sf::Vector2f(20.f, 20.f);
-		this->level_ = 1;
-		this->xp_ = 0.0;
-		this->next_level_ = 100.f;
-		this->player_.setFillColor(sf::Color::Blue);
-		this->player_.setSize(sf::Vector2f(20.f, 20.f));
-		this->player_.setPosition(p_position_);
+	if(!pl_texture_.loadFromFile("res/MinerSprite.png")) {
+		std::cout << "pl_sprite not loaded! " << "\n";
+	}
+	else {
+		std::cout << "pl_sprite loaded! " << "\n";
+		pl_sprite_.setTexture(pl_texture_);
+	}
+
+	pl_position_ = sf::Vector2f(20.f, 20.f);
+	this->level_ = 1;
+	this->xp_ = 0.0;
+	this->next_level_ = 100.f;
+	this->pl_sprite_.setPosition(pl_position_);
 }
 
 void Player::update(const float dt) {
 		const int multiplier = 80;
-		p_position_ = player_.getPosition();
+		pl_position_ = pl_sprite_.getPosition();
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A ) )
-			p_position_.x -= 2 * dt * multiplier;
+			pl_position_.x -= 2 * dt * multiplier;
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D ) )
-			p_position_.x += 2 * dt * multiplier;
+			pl_position_.x += 2 * dt * multiplier;
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W ) )
-			p_position_.y -= 2 * dt * multiplier;
+			pl_position_.y -= 2 * dt * multiplier;
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S ) )
-			p_position_.y += 2 * dt * multiplier;
+			pl_position_.y += 2 * dt * multiplier;
 
-		player_.setPosition(p_position_);
+		pl_sprite_.setPosition(pl_position_);
 
 		if(this->xp_ >= this->next_level_) {
 			level_++;
@@ -32,10 +38,10 @@ void Player::update(const float dt) {
 }
 
 bool Player::collision(const sf::RectangleShape& mineral) {
-		if(p_position_.x < mineral.getPosition().x + mineral.getSize().x &&
-			p_position_.x + player_.getSize().x > mineral.getPosition().x &&
-			p_position_.y < mineral.getPosition().y + mineral.getSize().y &&
-			p_position_.y + player_.getSize().y > mineral.getPosition().y) 
+		if(pl_position_.x < mineral.getPosition().x + mineral.getSize().x &&
+			pl_position_.x + pl_sprite_.getGlobalBounds().width > mineral.getPosition().x &&
+			pl_position_.y < mineral.getPosition().y + mineral.getSize().y &&
+			pl_position_.y + pl_sprite_.getGlobalBounds().height > mineral.getPosition().y) 
 		{
 			return true;
 		}
