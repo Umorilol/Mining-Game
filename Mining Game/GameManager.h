@@ -16,8 +16,8 @@ public:
 	sf::Time m_time_ = sf::seconds(0.f);
 	sf::Time m_timer_ = sf::seconds(5.f);
 
-	Ui hud_;
-	Player guy_;
+	Ui* hud_;
+	Player* guy_;
 	sf::View view_{sf::FloatRect(200.f, 200.f, 400.f, 300.f)};
 	sf::Vector2f mineral_position_;
 	std::vector<std::unique_ptr<MineralTile>> mineral_vector_;
@@ -26,4 +26,5 @@ public:
 	void GameLoop();
 	void update();
 	void draw(sf::RenderWindow*) const;
+	void KeyManager();
 };

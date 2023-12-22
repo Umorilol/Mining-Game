@@ -18,10 +18,6 @@ void Ui::Initialize() {
 	skills_sprite_.setPosition(0,0);
 }
 
-void Ui::Update(sf::View& view) {
-	//if ( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::K )
-		//skills_shown_ = !skills_shown_;
-
-	skills_sprite_.setPosition(view.getCenter().x + 100.f, view.getCenter().y + 20.f);
-	//skills_sprite_.setPosition(view.getCenter());
+void Ui::Update(const sf::View& view) {
+	skills_sprite_.setPosition(view.getCenter().x + 100.f, view.getCenter().y + 20.f);	// I can redo this to be more mathematical forgor
 }

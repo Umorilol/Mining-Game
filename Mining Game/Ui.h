@@ -7,9 +7,8 @@ public:
 	
 	sf::Texture skills_tex_;
 	sf::Sprite skills_sprite_;
-	bool skills_shown_ {true};
+	bool skills_shown_ {false};
 	Ui();
 	void Initialize();
-	void Update(sf::View&);
-	void Draw();
+	void Update(const sf::View&);
 };

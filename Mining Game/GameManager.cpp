@@ -4,8 +4,10 @@ GameManager::GameManager()=default;
 
 void GameManager::setup(sf::RenderWindow* window) {
 	this->window_ = window;
+	guy_ = new Player();
+	hud_ = new Ui();
 	srand(time(nullptr));
-	guy_.player_.setPosition(50.f, 50.f);
+	guy_->player_.setPosition(50.f, 50.f);
 	Coal coal;
 	Iron iron;
 	std::vector<Mineral> mineral_vector;
@@ -22,13 +24,7 @@ void GameManager::setup(sf::RenderWindow* window) {
 
 void GameManager::GameLoop() {
 	while ( window_->isOpen() ) {
-		for ( auto event = sf::Event{}; window_->pollEvent( event );) {
-			if ( event.type == sf::Event::Closed )
-				window_->close();
-
-			if ( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape )
-				window_->close();
-		}
+		KeyManager();
 		delta_time_ = clock_.restart().asSeconds();
 		update();
 		draw(window_);
@@ -36,15 +32,15 @@ void GameManager::GameLoop() {
 }
 
 void GameManager::update() {
-	guy_.update(delta_time_);
-	view_.setCenter(guy_.p_position_);
-	hud_.Update(view_);
+	guy_->update(delta_time_);
+	view_.setCenter(guy_->p_position_);
+	hud_->Update(view_);
 	for(auto& i : mineral_vector_) {
-		if(guy_.collision(i->mineral_tile_) && sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !i->mined_) {
+		if(guy_->collision(i->mineral_tile_) && sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !i->mined_) {
 			m_time_ = update_clock_.restart();
 			i->mineral_tile_.setFillColor(sf::Color::Red);
-			guy_.xp_ += i->mineral_.xp_;
-			std::cout << guy_.xp_ << " / " << guy_.next_level_ << "\n"	;
+			guy_->xp_ += i->mineral_.xp_;
+			std::cout << guy_->xp_ << " / " << guy_->next_level_ << "\n"	;
 			i->mined_ = true;
 		}
 		if(i->mined_) {
@@ -66,12 +62,26 @@ void GameManager::draw(sf::RenderWindow* window) const {
 		window->draw(i->mineral_tile_);
 	}
 	//Player
-	window->draw(guy_.player_);
+	window->draw(guy_->player_);
 
 	//UI
-	if(hud_.skills_shown_ == true) {
-		window->draw(hud_.skills_sprite_);
+	if(hud_->skills_shown_ == true) {
+		window->draw(hud_->skills_sprite_);
 	}
 
 	window->display();
+}
+
+void GameManager::KeyManager() {
+	for ( auto event = sf::Event{}; window_->pollEvent( event );) {
+		if ( event.type == sf::Event::Closed )
+			window_->close();
+
+		if ( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape )
+			window_->close();
+
+		if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::K) {
+			hud_->skills_shown_ = !hud_->skills_shown_;
+		}
+	}
 }
