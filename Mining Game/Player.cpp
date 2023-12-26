@@ -8,7 +8,7 @@ Player::Player() {
 		std::cout << "pl_sprite loaded! " << "\n";
 		pl_sprite_.setTexture(pl_texture_);
 	}
-
+	pl_sprite_.setScale(1.2f, 1.2f);
 	pl_position_ = sf::Vector2f(20.f, 20.f);
 	this->level_ = 1;
 	this->xp_ = 0.0;

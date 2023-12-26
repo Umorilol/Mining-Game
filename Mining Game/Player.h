@@ -16,8 +16,3 @@ public:
 	bool collision(const sf::RectangleShape& mineral);
 };
 
-class InventoryItem : public Player {
-public:
-	Mineral mineral_;
-	int stack_num_;
-};

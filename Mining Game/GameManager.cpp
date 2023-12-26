@@ -1,11 +1,12 @@
 #include "GameManager.h"
 
-GameManager::GameManager()=default;
+GameManager::GameManager(){
+	guy_ = new Player();
+	hud_ = new Ui();
+}
 
 void GameManager::setup(sf::RenderWindow* window) {
 	this->window_ = window;
-	guy_ = new Player();
-	hud_ = new Ui();
 	srand(time(nullptr));
 	guy_->pl_sprite_.setPosition(50.f, 50.f);
 	Coal coal;
@@ -52,7 +53,7 @@ void GameManager::update() {
 			}
 		}
 	}
-}
+} 
 
 void GameManager::draw(sf::RenderWindow* window) const {
 	window->clear();
