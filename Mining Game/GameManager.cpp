@@ -1,17 +1,12 @@
 #include "GameManager.h"
 
-#include "MineralTile.h"
-
-GameManager::GameManager() = default;
-
-void GameManager::setup(sf::RenderWindow* window) {
-	fill_map();
-
-	Coal coal;
-	Iron iron;
-	this->window_ = window;
+GameManager::GameManager(){
 	guy_ = new Player();
 	hud_ = new Ui();
+}
+
+void GameManager::setup(sf::RenderWindow* window) {
+	this->window_ = window;
 	srand(time(nullptr));
 	guy_->pl_sprite_.setPosition(50.f, 50.f);
 	Coal coal;
@@ -99,7 +94,7 @@ void GameManager::update() {
 			}
 		}
 	}
-}
+} 
 
 void GameManager::draw(sf::RenderWindow* window) const {
 	window->clear();
