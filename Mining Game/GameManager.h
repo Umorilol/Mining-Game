@@ -19,7 +19,7 @@ public:
 
 	// Map
 	std::ifstream map_file_;
-	char map_array_[8][34];
+	sf::RectangleShape map_array_[8][34];
 
 	Player guy_;
 	sf::Vector2f mineral_position_;

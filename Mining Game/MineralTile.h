@@ -2,6 +2,8 @@
 #include <SFML/Graphics.hpp>
 #include "Mineral.h"
 
+// Make this a subclass of Tile
+
 class MineralTile {
 public:
 	sf::RectangleShape mineral_tile_;

@@ -28,19 +28,25 @@ void GameManager::setup(sf::RenderWindow* window) {
 	GameLoop();
 }
 
-void GameManager::fill_map() {
+void GameManager::fill_map() {	// Temp char read from file fed into switch that puts correct tile into array
 	int i = 0, j = 0;
+	char temp_ = ' ';
 	map_file_.open("mapV1.txt", std::ios::in);
 	if (!map_file_) {
 		std::cout << "file not opened!" << std::endl;
 	}
 	while (!map_file_.eof()) {
-		map_file_ >> map_array_[j][i];
-		i++;
+		map_file_ >> temp_;
+		switch(temp_) {
+		case '1':
+			
+			break;
+		}
+		/*i++;
 		if (i >= 33) {
 			j++;
 			i = 0;
-		}
+		}*/
 	}
 	map_file_.close();
 }
