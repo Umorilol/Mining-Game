@@ -1,15 +1,11 @@
 #include "GameManager.h"
 
+#include "MineralTile.h"
+
 GameManager::GameManager() = default;
 
 void GameManager::setup(sf::RenderWindow* window) {
 	fill_map();
-	for (auto& i : map_array_) {
-		for (char j : i) {
-			std::cout << j;
-		}
-		std::cout << std::endl;
-	}
 
 	Coal coal;
 	Iron iron;
@@ -28,25 +24,48 @@ void GameManager::setup(sf::RenderWindow* window) {
 	GameLoop();
 }
 
-void GameManager::fill_map() {	// Temp char read from file fed into switch that puts correct tile into array
+void GameManager::fill_map() {	// Temp char read from file fed into switch that puts correct tile into array; On a mineral_tile - add to vector here?
+	sf::Vector2f tile_position(0.f, 0.f);
 	int i = 0, j = 0;
-	char temp_ = ' ';
+	char temp = ' ';
+	TempTile* temp_shape = NULL;
 	map_file_.open("mapV1.txt", std::ios::in);
 	if (!map_file_) {
 		std::cout << "file not opened!" << std::endl;
 	}
 	while (!map_file_.eof()) {
-		map_file_ >> temp_;
-		switch(temp_) {
-		case '1':
-			
+		map_file_ >> temp;
+		switch(temp) {
+		case '1': // Path / dirt
+			temp_shape = new TempTile(tile_position, sf::Color::Blue);
+			map_array_[i][j] = temp_shape;
+			break;
+		case '3':
+			temp_shape = new TempTile(tile_position, sf::Color::Black);
+			map_array_[i][j] = temp_shape;
+			break;
+
+		case '4': // Coal
+			temp_shape = new TempTile(tile_position, sf::Color::Black);
+			map_array_[i][j] = temp_shape;
+			break;
+
+		case '5': // Iron
+			map_array_[i][j] = new TempTile(tile_position, sf::Color::Magenta);
+			break;
+
+		default:
+			std::cout << "Character not recognized " << "\n"; 
 			break;
 		}
-		/*i++;
+		i++;
+		tile_position.x +=30;
 		if (i >= 33) {
 			j++;
 			i = 0;
-		}*/
+			tile_position.x = 0;
+			tile_position.y += 30;
+		}
 	}
 	map_file_.close();
 }
@@ -70,9 +89,9 @@ void GameManager::update() {
 	guy_.update(delta_time_);
 
 	for (auto& i : mineral_vector_) {
-		if (guy_.collision(i->mineral_tile_) && sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !i->mined_) {
+		if (guy_.collision(i->tile_) && sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !i->mined_) {
 			m_time_ = update_clock_.restart();
-			i->mineral_tile_.setFillColor(sf::Color::Red);
+			i->tile_.setFillColor(sf::Color::Red);
 			guy_.xp_ += i->mineral_.xp_;
 			std::cout << guy_.xp_ << " / " << guy_.next_level_ << "\n";
 			i->mined_ = true;
@@ -80,7 +99,7 @@ void GameManager::update() {
 		if (i->mined_) {
 			i->timer_++;
 			if (i->timer_ >= i->mineral_.timer_multiplier_ / delta_time_ * 5) {
-				i->mineral_tile_.setFillColor(i->mineral_.color_);
+				i->tile_.setFillColor(i->mineral_.color_);
 				i->mined_ = false;
 				i->timer_ = 0;
 			}
@@ -92,7 +111,7 @@ void GameManager::draw(sf::RenderWindow* window) const {
 	window->clear();
 	//Minerals
 	for (auto& i : mineral_vector_) {
-		window->draw(i->mineral_tile_);
+		window->draw(i->tile_);
 	}
 	//Player
 	window->draw(guy_.player_);

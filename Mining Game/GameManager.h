@@ -4,8 +4,10 @@
 #include<fstream>
 #include<iostream>
 #include"Mineral.h"
+#include "MineralTile.h"
 #include"Player.h"
-#include"MineralTile.h"
+#include "TempTile.h"
+#include"Tile.h"
 
 class GameManager{
 public:
@@ -19,7 +21,7 @@ public:
 
 	// Map
 	std::ifstream map_file_;
-	sf::RectangleShape map_array_[8][34];
+	TempTile map_array_[8][34];
 
 	Player guy_;
 	sf::Vector2f mineral_position_;
