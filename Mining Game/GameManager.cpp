@@ -28,7 +28,6 @@ void GameManager::fill_map() {	// Temp char read from file fed into switch that 
 	sf::Vector2f tile_position(0.f, 0.f);
 	int i = 0, j = 0;
 	char temp = ' ';
-	TempTile* temp_shape = NULL;
 	map_file_.open("mapV1.txt", std::ios::in);
 	if (!map_file_) {
 		std::cout << "file not opened!" << std::endl;
@@ -37,35 +36,31 @@ void GameManager::fill_map() {	// Temp char read from file fed into switch that 
 		map_file_ >> temp;
 		switch(temp) {
 		case '1': // Path / dirt
-			temp_shape = new TempTile(tile_position, sf::Color::Blue);
-			map_array_[i][j] = temp_shape;
+			map_vector_.emplace_back(std::make_unique<TempTile>(tile_position, sf::Color(150, 75, 0, 155)));
 			break;
 		case '3':
-			temp_shape = new TempTile(tile_position, sf::Color::Black);
-			map_array_[i][j] = temp_shape;
+			map_vector_.emplace_back(std::make_unique<TempTile>(tile_position, sf::Color::Cyan));
 			break;
 
 		case '4': // Coal
-			temp_shape = new TempTile(tile_position, sf::Color::Black);
-			map_array_[i][j] = temp_shape;
+			map_vector_.emplace_back(std::make_unique<TempTile>(tile_position, sf::Color::Black));
 			break;
 
 		case '5': // Iron
-			map_array_[i][j] = new TempTile(tile_position, sf::Color::Magenta);
+			map_vector_.emplace_back(std::make_unique<TempTile>(tile_position, sf::Color::Green));
+			break;
+
+		case '-':
+			tile_position.y += 30;
+			tile_position.x = -30;
+			std::cout << tile_position.y << "\n";
 			break;
 
 		default:
 			std::cout << "Character not recognized " << "\n"; 
 			break;
 		}
-		i++;
 		tile_position.x +=30;
-		if (i >= 33) {
-			j++;
-			i = 0;
-			tile_position.x = 0;
-			tile_position.y += 30;
-		}
 	}
 	map_file_.close();
 }
@@ -110,7 +105,7 @@ void GameManager::update() {
 void GameManager::draw(sf::RenderWindow* window) const {
 	window->clear();
 	//Minerals
-	for (auto& i : mineral_vector_) {
+	for (auto& i : map_vector_) {
 		window->draw(i->tile_);
 	}
 	//Player

@@ -9,5 +9,6 @@ public:
 	const sf::Vector2f size_ {30.f,30.f};
 
 	Tile(sf::Vector2f);
+	virtual ~Tile() = default;
 };
 

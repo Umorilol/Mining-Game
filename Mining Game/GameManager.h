@@ -21,7 +21,7 @@ public:
 
 	// Map
 	std::ifstream map_file_;
-	TempTile map_array_[8][34];
+	std::vector<std::unique_ptr<Tile>> map_vector_;
 
 	Player guy_;
 	sf::Vector2f mineral_position_;
