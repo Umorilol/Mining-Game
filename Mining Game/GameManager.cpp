@@ -14,15 +14,7 @@ void GameManager::setup(sf::RenderWindow* window) {
 	hud_ = new Ui();
 	srand(time(nullptr));
 	guy_->pl_sprite_.setPosition(50.f, 50.f);
-	std::vector<Mineral> mineral_vector;
-	mineral_vector.emplace_back(coal);
-	mineral_vector.emplace_back(iron);
 
-	for (int i = 0; i < 12; i++) {
-		mineral_vector_.emplace_back(std::make_unique<MineralTile>(mineral_position_, mineral_vector[i % 2]));
-		mineral_position_.x += rand() % 80;
-		mineral_position_.y += rand() % 60;
-	}
 	GameLoop();
 }
 
@@ -37,19 +29,19 @@ void GameManager::fill_map() {	// Temp char read from file fed into switch that 
 	while (!map_file_.eof()) {
 		map_file_ >> temp;
 		switch(temp) {
-		case '1': // Path / dirt
-			map_vector_.emplace_back(std::make_unique<TempTile>(tile_position, sf::Color(150, 75, 0, 155)));
+		case '1': // Path 
+			map_vector_.emplace_back(std::make_unique<TempTile>(tile_position, sf::Color(185, 185, 0, 155)));
 			break;
-		case '3':
-			map_vector_.emplace_back(std::make_unique<TempTile>(tile_position, sf::Color::Cyan));
-			break;
-
-		case '4': // Coal
-			map_vector_.emplace_back(std::make_unique<TempTile>(tile_position, sf::Color::Black));
-			break;
-
-		case '5': // Iron
+		case '5':
 			map_vector_.emplace_back(std::make_unique<TempTile>(tile_position, sf::Color::Green));
+			break;
+
+		case '3': // Coal
+			mineral_tile_vector_.emplace_back(std::make_unique<MineralTile>(tile_position, coal_));
+			break;
+
+		case '4': // Iron
+			mineral_tile_vector_.emplace_back(std::make_unique<MineralTile>(tile_position, iron_));
 			break;
 
 		case '-':
@@ -80,7 +72,7 @@ void GameManager::update() {
 	guy_->update(delta_time_);
 	view_.setCenter(sf::Vector2f(guy_->pl_position_.x + (guy_->pl_sprite_.getGlobalBounds().width / 2), guy_->pl_position_.y + (guy_->pl_sprite_.getGlobalBounds().height / 2)));
 	hud_->Update(view_);
-	for(auto& i : mineral_vector_) {
+	for(auto& i : mineral_tile_vector_) {
 		if(guy_->collision(i->tile_) && sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !i->mined_) {
 			m_time_ = update_clock_.restart();
 			i->tile_.setFillColor(sf::Color::Red);
@@ -102,8 +94,12 @@ void GameManager::update() {
 void GameManager::draw(sf::RenderWindow* window) const {
 	window->clear();
 	window->setView(view_);
-	//Minerals
+	//Map
 	for (auto& i : map_vector_) {
+		window->draw(i->tile_);
+	}
+	//Minerals
+	for (auto& i : mineral_tile_vector_) {
 		window->draw(i->tile_);
 	}
 	//Player

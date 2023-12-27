@@ -23,12 +23,13 @@ public:
 	// Map
 	std::ifstream map_file_;
 	std::vector<std::unique_ptr<Tile>> map_vector_;
-
+	Coal coal_;
+	Iron iron_;
 	Ui* hud_;
 	Player* guy_;
 	sf::View view_{sf::FloatRect(200.f, 200.f, 300.f, 200.f)};
 	sf::Vector2f mineral_position_;
-	std::vector<std::unique_ptr<MineralTile>> mineral_vector_;
+	std::vector<std::unique_ptr<MineralTile>> mineral_tile_vector_;
 	GameManager();
 	void setup(sf::RenderWindow* window);
 	void fill_map();
