@@ -5,7 +5,6 @@
 #include<iostream>
 #include"Mineral.h"
 #include"Player.h"
-#include "TempTile.h"
 #include"Tile.h"
 #include"MineralTile.h"
 #include "Ui.h"
