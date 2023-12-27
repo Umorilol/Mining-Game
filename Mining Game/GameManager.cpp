@@ -14,8 +14,6 @@ void GameManager::setup(sf::RenderWindow* window) {
 	hud_ = new Ui();
 	srand(time(nullptr));
 	guy_->pl_sprite_.setPosition(50.f, 50.f);
-	Coal coal;
-	Iron iron;
 	std::vector<Mineral> mineral_vector;
 	mineral_vector.emplace_back(coal);
 	mineral_vector.emplace_back(iron);
@@ -83,9 +81,9 @@ void GameManager::update() {
 	view_.setCenter(sf::Vector2f(guy_->pl_position_.x + (guy_->pl_sprite_.getGlobalBounds().width / 2), guy_->pl_position_.y + (guy_->pl_sprite_.getGlobalBounds().height / 2)));
 	hud_->Update(view_);
 	for(auto& i : mineral_vector_) {
-		if(guy_->collision(i->mineral_tile_) && sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !i->mined_) {
+		if(guy_->collision(i->tile_) && sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !i->mined_) {
 			m_time_ = update_clock_.restart();
-			i->mineral_tile_.setFillColor(sf::Color::Red);
+			i->tile_.setFillColor(sf::Color::Red);
 			guy_->xp_ += i->mineral_.xp_;
 			std::cout << guy_->xp_ << " / " << guy_->next_level_ << "\n"	;
 			i->mined_ = true;

@@ -24,7 +24,6 @@ public:
 	std::ifstream map_file_;
 	std::vector<std::unique_ptr<Tile>> map_vector_;
 
-
 	Ui* hud_;
 	Player* guy_;
 	sf::View view_{sf::FloatRect(200.f, 200.f, 300.f, 200.f)};
