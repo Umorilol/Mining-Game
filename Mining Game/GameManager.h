@@ -6,8 +6,9 @@
 #include"Mineral.h"
 #include"Player.h"
 #include"Tile.h"
-#include"MineralTile.h"
 #include "Ui.h"
+#include "MineralTile.h"
+#include "TempTile.h"
 
 class GameManager{
 public:

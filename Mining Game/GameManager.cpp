@@ -1,6 +1,7 @@
 #include "GameManager.h"
 
 #include "MineralTile.h"
+#include "TempTile.h"
 
 GameManager::GameManager() = default;
 

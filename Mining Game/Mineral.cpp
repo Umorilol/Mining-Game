@@ -1,6 +1,6 @@
 #include "Mineral.h"
 
-Mineral::Mineral() {
+Mineral::Mineral()  {
 	this->xp_ = 0.0;
 }
 

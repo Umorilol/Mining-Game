@@ -1,5 +1,7 @@
 #include"Player.h"
 
+#include <iostream>
+
 Player::Player() {
 	if(!pl_texture_.loadFromFile("res/MinerSprite.png")) {
 		std::cout << "pl_sprite not loaded! " << "\n";
