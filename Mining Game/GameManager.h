@@ -20,11 +20,14 @@ public:
 	sf::Time m_time_ = sf::seconds(0.f);
 	sf::Time m_timer_ = sf::seconds(5.f);
 
+	MineralType coal_type{sf::Color::Black, 50.0, 2};
+	MineralType iron_type{sf::Color(128, 128, 128), 75.0, 3};
+	Mineral coal_{coal_type};
+	Mineral iron_{iron_type};
+
 	// Map
 	std::ifstream map_file_;
 	std::vector<std::unique_ptr<Tile>> map_vector_;
-	Coal coal_;
-	Iron iron_;
 	Ui* hud_;
 	Player* guy_;
 	sf::View view_{sf::FloatRect(200.f, 200.f, 300.f, 200.f)};

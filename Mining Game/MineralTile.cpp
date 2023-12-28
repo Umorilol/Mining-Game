@@ -4,6 +4,6 @@ MineralTile::MineralTile(const sf::Vector2f position, Mineral mineral) : Tile(po
 	this->mineral_ = mineral;
 	this->timer_ = 0;
 	this->position_ = position;
-	this->tile_.setFillColor(mineral_.color_);
+	this->tile_.setFillColor(mineral_.type_.color_);
 }
 

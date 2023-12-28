@@ -7,9 +7,6 @@ GameManager::GameManager() = default;
 
 void GameManager::setup(sf::RenderWindow* window) {
 	fill_map();
-
-	Coal coal;
-	Iron iron;
 	this->window_ = window;
 	guy_ = new Player();
 	hud_ = new Ui();
@@ -38,7 +35,7 @@ void GameManager::fill_map() {	// Temp char read from file fed into switch that 
 			break;
 
 		case '3': // Coal
-			mineral_tile_vector_.emplace_back(std::make_unique<MineralTile>(tile_position, coal_));
+			mineral_tile_vector_.emplace_back(std::make_unique<MineralTile>(tile_position, coal_ ));
 			break;
 
 		case '4': // Iron
@@ -77,14 +74,14 @@ void GameManager::update() {
 		if(guy_->collision(i->tile_) && sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !i->mined_) {
 			m_time_ = update_clock_.restart();
 			i->tile_.setFillColor(sf::Color::Red);
-			guy_->xp_ += i->mineral_.xp_;
+			guy_->xp_ += i->mineral_.type_.xp_;
 			std::cout << guy_->xp_ << " / " << guy_->next_level_ << "\n"	;
 			i->mined_ = true;
 		}
 		if (i->mined_) {
 			i->timer_++;
-			if (i->timer_ >= i->mineral_.timer_multiplier_ / delta_time_ * 5) {
-				i->tile_.setFillColor(i->mineral_.color_);
+			if (i->timer_ >= i->mineral_.type_.timer_multiplier_ / delta_time_ * 5) {
+				i->tile_.setFillColor(i->mineral_.type_.color_);
 				i->mined_ = false;
 				i->timer_ = 0;
 			}
