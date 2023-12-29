@@ -74,14 +74,14 @@ void GameManager::update() {
 		if(guy_->collision(i->tile_) && sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !i->mined_) {
 			m_time_ = update_clock_.restart();
 			i->tile_.setFillColor(sf::Color::Red);
-			guy_->xp_ += i->mineral_.type_.xp_;
+			guy_->xp_ += i->mineral_.type_.xp;
 			std::cout << guy_->xp_ << " / " << guy_->next_level_ << "\n"	;
 			i->mined_ = true;
 		}
 		if (i->mined_) {
 			i->timer_++;
-			if (i->timer_ >= i->mineral_.type_.timer_multiplier_ / delta_time_ * 5) {
-				i->tile_.setFillColor(i->mineral_.type_.color_);
+			if (i->timer_ >= i->mineral_.type_.timer_multiplier / delta_time_ * 5) {
+				i->tile_.setFillColor(i->mineral_.type_.color);
 				i->mined_ = false;
 				i->timer_ = 0;
 			}

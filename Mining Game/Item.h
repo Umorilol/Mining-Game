@@ -1,8 +1,12 @@
 #pragma once
 
+struct ItemID {
+	
+};
+
 class Item {
 public:
-	int item_id_;
+	ItemID item_;
 
 	Item();
 	virtual ~Item() = default;

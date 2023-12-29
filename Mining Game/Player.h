@@ -7,6 +7,7 @@ class Player
 public:
 	sf::Texture pl_texture_;
 	sf::Sprite pl_sprite_;
+
 	sf::Vector2f pl_position_;
 	float xp_;
 	int level_;
