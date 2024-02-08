@@ -9,5 +9,5 @@ public:
 	bool mined_ {false};
 	int timer_;
 
-	MineralTile(sf::Vector2f, Mineral);
+	MineralTile(const sf::Vector2f, Mineral mineral, sf::Texture&);
 };

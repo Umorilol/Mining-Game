@@ -5,3 +5,4 @@ Tile::Tile(sf::Vector2f pos) {
 	this->tile_.setPosition(position_);
 	this->tile_.setSize(size_);
 }
+
