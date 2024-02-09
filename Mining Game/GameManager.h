@@ -21,9 +21,10 @@ public:
 	sf::Time m_timer_ = sf::seconds(5.f);
 	sf::Texture coal_texture_;
 	sf::Texture iron_texture_;
+	sf::Texture mined_texture;
 
-	MineralType coal_type{sf::Color(0.f,0.f,0.f, 0),50.0, 2};
-	MineralType iron_type{sf::Color(128, 128, 128), 75.0, 3};
+	MineralType coal_type{1,50.0, 2};
+	MineralType iron_type{2, 75.0, 3};
 	Mineral coal_{coal_type};
 	Mineral iron_{iron_type};
 

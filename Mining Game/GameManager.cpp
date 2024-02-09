@@ -8,13 +8,17 @@ GameManager::GameManager()
 	guy_()
 {
   if (!coal_texture_.loadFromFile("res/coal_sprite.png")) {
+    std::cout << "coal sprite not loaded! " << "\n";
+  }
+  if (!iron_texture_.loadFromFile("res/iron_sprite.png")) {
     std::cout << "coal sprite not loaded! "
               << "\n";
   }
-  if (!iron_texture_.loadFromFile("res/gold_sprite.png")) {
-    std::cout << "coal sprite not loaded! "
-              << "\n";
-  } else
+  if (!mined_texture.loadFromFile("res/mined_sprite.png"))
+  {
+    std::cout << "coal sprite not loaded! " << "\n";
+  }
+  else
   {
     std::cout << "sprites successfull"
               << "\n";
@@ -81,7 +85,7 @@ void GameManager::update() {
 	for(auto& i : mineral_tile_vector_) {
 		if(guy_.collision(i->tile_) && sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !i->mined_) {
 			m_time_ = update_clock_.restart();
-			i->tile_.setFillColor(sf::Color::Red);
+			i->sprite_.setTexture(mined_texture);
 			guy_.xp_ += i->mineral_.type_.xp_;
 			std::cout << guy_.xp_ << " / " << guy_.next_level_ << "\n"	;
 			i->mined_ = true;
@@ -89,7 +93,13 @@ void GameManager::update() {
 		if (i->mined_) {
 			i->timer_++;
 			if (i->timer_ >= i->mineral_.type_.timer_multiplier_ / delta_time_ * 5) {
-				i->tile_.setFillColor(i->mineral_.type_.color_);
+				if(i->mineral_.type_.id == 1)
+				{
+                          i->sprite_.setTexture(coal_texture_);
+				}
+				if (i->mineral_.type_.id == 2) {
+					i->sprite_.setTexture(iron_texture_);
+				}
 				i->mined_ = false;
 				i->timer_ = 0;
 			}
