@@ -98,7 +98,7 @@ void GameManager::update() {
 }
 
 void GameManager::draw() {
-	window_.clear(sf::Color::White);
+	window_.clear();
 	window_.setView(view_);
 	//Map
 	for (auto& i : map_vector_) {
