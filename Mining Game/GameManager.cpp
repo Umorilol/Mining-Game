@@ -20,8 +20,7 @@ GameManager::GameManager()
   }
   else
   {
-    std::cout << "sprites successfull"
-              << "\n";
+    std::cout << "sprites successfull " << "\n";
   }
   guy_.pl_sprite_.setPosition(50.f, 50.f);
   fill_map();
