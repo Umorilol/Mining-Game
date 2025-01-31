@@ -25,7 +25,6 @@
     <ClCompile Include="MineralTile.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Source.cpp" />
-    <ClCompile Include="TempTile.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="Ui.cpp" />
   </ItemGroup>
@@ -36,7 +35,6 @@
     <ClInclude Include="MineralTile.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Ui.h" />
-    <ClInclude Include="TempTile.h" />
     <ClInclude Include="Tile.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

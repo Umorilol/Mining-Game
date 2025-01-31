@@ -1,6 +1,5 @@
 #include "GameManager.h"
 #include "MineralTile.h"
-#include "TempTile.h"
 
 GameManager::GameManager()
 	: window_( sf::VideoMode( 1200.f, 800.f ), "Mining Game", sf::Style::Close ),
@@ -11,6 +10,7 @@ GameManager::GameManager()
 	if ( !sheet.loadFromFile("res/sprite_sheet.png") ) {
 		std::cout << "Sprite Sheet Not Loaded! " << "\n";
 	}
+	// Could make a texture vector then load image for each in vector iterating 64 through the sheet
 	coal_texture_.loadFromImage(sheet, sf::IntRect(0, 0, 64, 64));
 
 	iron_texture_.loadFromImage(sheet, sf::IntRect(64, 0, 64, 64));

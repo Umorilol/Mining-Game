@@ -8,7 +8,6 @@
 #include"Tile.h"
 #include "Ui.h"
 #include "MineralTile.h"
-#include "TempTile.h"
 
 class GameManager {
 public:
