@@ -6,8 +6,8 @@
 class MineralTile : public Tile {
 public:
 	Mineral mineral_;
-	bool mined_ {false};
+	bool mined_{ false };
 	int timer_;
 
-	MineralTile(const sf::Vector2f, Mineral mineral, sf::Texture&);
+	MineralTile( const sf::Vector2f, Mineral mineral, sf::Texture& );
 };

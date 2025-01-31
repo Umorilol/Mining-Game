@@ -12,8 +12,8 @@ public:
 	int level_;
 	float next_level_;
 	Player();
-	void update(const float dt);
-	bool collision(const sf::RectangleShape& mineral);
+	void update( const float dt );
+	bool collision( const sf::RectangleShape& mineral );
 };
 
 class InventoryItem : public Player {

@@ -4,8 +4,7 @@
 int main()
 {
 	GameManager manager;
-    manager.GameLoop();
+	manager.GameLoop();
 
 	return 0;
 }
-
