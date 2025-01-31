@@ -6,30 +6,34 @@ GameManager::GameManager()
 	hud_(),
 	guy_()
 {
-	// Load Files moved guy texture loading here for consolidation
+	// Initialize Textures
+	// Could make a texture vector then load image for each in vector iterating 64 through the sheet
+	// Minerals
 	sf::Image sheet;
 	if ( !sheet.loadFromFile("res/sprite_sheet.png") ) {
 		std::cout << "Sprite Sheet Not Loaded! " << "\n";
 	}
-	if ( !guy_.pl_texture_.loadFromFile( "res/MinerSprite.png" ) ) {
-		std::cout << "pl_sprite not loaded! " << "\n";
-	}
-	if ( !hud_.skills_tex_.loadFromFile( "res/Inventory.png" ) ) {
-		std::cout << "Inventory Texture not loaded" << "\n";
-	}
-
-	// Could make a texture vector then load image for each in vector iterating 64 through the sheet
 	coal_texture_.loadFromImage(sheet, sf::IntRect(0, 0, 64, 64));
 
 	iron_texture_.loadFromImage(sheet, sf::IntRect(64, 0, 64, 64));
 
 	mined_texture.loadFromImage(sheet, sf::IntRect(128, 0, 64, 64));
 
-	hud_.skills_sprite_.setTexture( hud_.skills_tex_ );
-
+	// Player
+	if ( !guy_.pl_texture_.loadFromFile( "res/MinerSprite.png" ) ) {
+		std::cout << "pl_sprite not loaded! " << "\n";
+	}
 	guy_.pl_sprite_.setTexture( guy_.pl_texture_ );
 
 	guy_.pl_sprite_.setPosition( 50.f, 50.f );
+
+	// UI
+	if ( !hud_.skills_tex_.loadFromFile( "res/Inventory.png" ) ) {
+		std::cout << "Inventory Texture not loaded" << "\n";
+	}
+
+	hud_.skills_sprite_.setTexture( hud_.skills_tex_ );
+
 	fill_map();
 }
 
@@ -88,26 +92,30 @@ void GameManager::update() {
 	guy_.update( delta_time_ );
 	view_.setCenter( sf::Vector2f( guy_.pl_position_.x + ( guy_.pl_sprite_.getGlobalBounds().width / 2 ), guy_.pl_position_.y + ( guy_.pl_sprite_.getGlobalBounds().height / 2 ) ) );
 	hud_.Update( view_ );
-	for ( auto& i : mineral_tile_vector_ ) {
-		if ( guy_.collision( i->tile_ ) && sf::Keyboard::isKeyPressed( sf::Keyboard::Space ) && !i->mined_ ) {
-			m_time_ = update_clock_.restart();
-			i->sprite_.setTexture( mined_texture );
-			guy_.xp_ += i->mineral_.type_.xp_;
-			std::cout << guy_.xp_ << " / " << guy_.next_level_ << "\n";
-			i->mined_ = true;
-		}
-		if ( i->mined_ ) {
-			i->timer_++;
-			if ( i->timer_ >= i->mineral_.type_.timer_multiplier_ / delta_time_ * 5 ) {
-				if ( i->mineral_.type_.id == 1 )
-				{
-					i->sprite_.setTexture( coal_texture_ );
+	// Rather than using this test have something in the players update that would invoke this check on the mineral vector. Could optimize by matching the position with the tile rather than
+	// looping through every one at the same time.
+	if (sf::Keyboard::isKeyPressed( sf::Keyboard::Space)) {
+		for ( auto& i : mineral_tile_vector_ ) {
+			if ( guy_.collision( i->tile_ ) && sf::Keyboard::isKeyPressed( sf::Keyboard::Space ) && !i->mined_ ) {
+				m_time_ = update_clock_.restart();
+				i->sprite_.setTexture( mined_texture );
+				guy_.xp_ += i->mineral_.type_.xp_;
+				std::cout << guy_.xp_ << " / " << guy_.next_level_ << "\n";
+				i->mined_ = true;
+			}
+			if ( i->mined_ ) {
+				i->timer_++;
+				if ( i->timer_ >= i->mineral_.type_.timer_multiplier_ / delta_time_ * 5 ) {
+					if ( i->mineral_.type_.id == 1 )
+					{
+						i->sprite_.setTexture( coal_texture_ );
+					}
+					if ( i->mineral_.type_.id == 2 ) {
+						i->sprite_.setTexture( iron_texture_ );
+					}
+					i->mined_ = false;
+					i->timer_ = 0;
 				}
-				if ( i->mineral_.type_.id == 2 ) {
-					i->sprite_.setTexture( iron_texture_ );
-				}
-				i->mined_ = false;
-				i->timer_ = 0;
 			}
 		}
 	}
