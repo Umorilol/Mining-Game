@@ -2,14 +2,6 @@
 #include <iostream>
 
 Player::Player() {
-	if ( !pl_texture_.loadFromFile( "res/MinerSprite.png" ) ) {
-		std::cout << "pl_sprite not loaded! " << "\n";
-	}
-	else {
-		std::cout << "pl_sprite loaded! " << "\n";
-		pl_sprite_.setTexture( pl_texture_ );
-	}
-
 	pl_position_ = sf::Vector2f( 20.f, 20.f );
 	this->level_ = 1;
 	this->xp_ = 0.0;

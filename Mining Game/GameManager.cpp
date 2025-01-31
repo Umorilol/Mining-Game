@@ -6,16 +6,28 @@ GameManager::GameManager()
 	hud_(),
 	guy_()
 {
+	// Load Files moved guy texture loading here for consolidation
 	sf::Image sheet;
 	if ( !sheet.loadFromFile("res/sprite_sheet.png") ) {
 		std::cout << "Sprite Sheet Not Loaded! " << "\n";
 	}
+	if ( !guy_.pl_texture_.loadFromFile( "res/MinerSprite.png" ) ) {
+		std::cout << "pl_sprite not loaded! " << "\n";
+	}
+	if ( !hud_.skills_tex_.loadFromFile( "res/Inventory.png" ) ) {
+		std::cout << "Inventory Texture not loaded" << "\n";
+	}
+
 	// Could make a texture vector then load image for each in vector iterating 64 through the sheet
 	coal_texture_.loadFromImage(sheet, sf::IntRect(0, 0, 64, 64));
 
 	iron_texture_.loadFromImage(sheet, sf::IntRect(64, 0, 64, 64));
 
 	mined_texture.loadFromImage(sheet, sf::IntRect(128, 0, 64, 64));
+
+	hud_.skills_sprite_.setTexture( hud_.skills_tex_ );
+
+	guy_.pl_sprite_.setTexture( guy_.pl_texture_ );
 
 	guy_.pl_sprite_.setPosition( 50.f, 50.f );
 	fill_map();
