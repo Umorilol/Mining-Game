@@ -10,16 +10,16 @@ Player::Player() {
 }
 
 void Player::update( const float dt ) {
-	const int multiplier = 80;
+	float multiplier = 80.f;
 	pl_position_ = pl_sprite_.getPosition();
 	if ( sf::Keyboard::isKeyPressed( sf::Keyboard::A ) )
-		pl_position_.x -= 2 * dt * multiplier;
+		pl_position_.x -= 2.f * dt * multiplier;
 	if ( sf::Keyboard::isKeyPressed( sf::Keyboard::D ) )
-		pl_position_.x += 2 * dt * multiplier;
+		pl_position_.x += 2.f * dt * multiplier;
 	if ( sf::Keyboard::isKeyPressed( sf::Keyboard::W ) )
-		pl_position_.y -= 2 * dt * multiplier;
+		pl_position_.y -= 2.f * dt * multiplier;
 	if ( sf::Keyboard::isKeyPressed( sf::Keyboard::S ) )
-		pl_position_.y += 2 * dt * multiplier;
+		pl_position_.y += 2.f * dt * multiplier;
 
 	pl_sprite_.setPosition( pl_position_ );
 

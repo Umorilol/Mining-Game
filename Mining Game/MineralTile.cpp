@@ -8,5 +8,5 @@ MineralTile::MineralTile( const sf::Vector2f position, Mineral mineral, sf::Text
 
 	this->sprite_.setTexture( texture_ );
 	this->sprite_.setPosition( position_.x - 8.f, position_.y - 9.f );
-	this->sprite_.setScale( .7f, .7f );
+	this->sprite_.setScale( 1.2f, 1.2f );
 }

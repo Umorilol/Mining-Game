@@ -65,16 +65,15 @@ void GameManager::fill_map() {
 			break;
 
 		case '-':
-			tile_position.y += 30;
-			tile_position.x = -30;
-			std::cout << tile_position.y << "\n";
+			tile_position.y += 64;
+			tile_position.x = -64;
 			break;
 
 		default:
 			std::cout << "Character not recognized " << "\n";
 			break;
 		}
-		tile_position.x += 30;
+		tile_position.x += 64;
 	}
 	map_file_.close();
 }
@@ -92,7 +91,7 @@ void GameManager::update() {
 	guy_.update(delta_time_);
 	view_.setCenter(sf::Vector2f(guy_.pl_position_.x + (guy_.pl_sprite_.getGlobalBounds().width / 2),
 	                             guy_.pl_position_.y + (guy_.pl_sprite_.getGlobalBounds().height / 2)));
-	hud_.Update(view_);
+	hud_.Update(view_, sf::Vector2f(guy_.xp_, guy_.next_level_));
 	// Rather than using this test have something in the players update that would invoke this check on the mineral vector. Could optimize by matching the position with the tile rather than
 	// looping through every one at the same time.
 	for (auto& i : mineral_tile_vector_) {
@@ -100,7 +99,6 @@ void GameManager::update() {
 			m_time_ = update_clock_.restart();
 			i->sprite_.setTexture(mined_texture);
 			guy_.xp_ += i->mineral_.type_.xp_;
-			std::cout << guy_.xp_ << " / " << guy_.next_level_ << "\n";
 			i->mined_ = true;
 		}
 		if (i->mined_) {
@@ -137,6 +135,7 @@ void GameManager::draw() {
 	//UI
 	if (hud_.skills_shown_ == true) {
 		window_.draw(hud_.skills_sprite_);
+		window_.draw(hud_.xp_text_);
 	}
 
 	window_.display();
