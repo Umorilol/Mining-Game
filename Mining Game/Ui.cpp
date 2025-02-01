@@ -24,5 +24,5 @@ void Ui::Initialize() {
 void Ui::Update( const sf::View& view, sf::Vector2f xp_vals ) {
 	skills_sprite_.setPosition( view.getCenter().x + 90.f, view.getCenter().y + 25.f );	// I can redo this to be more mathematical forgor
 	xp_text_.setString(std::to_string(static_cast<int>(xp_vals.x)) + " / " + std::to_string(static_cast<int>(xp_vals.y)));
-	xp_text_.setPosition( view.getCenter().x + 93.f, view.getCenter().y + 31.f);
+	xp_text_.setPosition( skills_sprite_.getPosition().x + 3.f, skills_sprite_.getPosition().y + 6.f);
 }
