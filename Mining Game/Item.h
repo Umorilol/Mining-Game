@@ -4,6 +4,6 @@ class Item {
 public:
 	int item_id_;
 
-	Item();
+	Item() = default;
 	virtual ~Item() = default;
 };

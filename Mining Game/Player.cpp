@@ -20,6 +20,11 @@ void Player::update( const float dt ) {
 		pl_position_.y -= 2.f * dt * multiplier;
 	if ( sf::Keyboard::isKeyPressed( sf::Keyboard::S ) )
 		pl_position_.y += 2.f * dt * multiplier;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::I)) {
+		for (auto& i : inventory_) {
+			std::cout<<i.item_id_ << "\n";
+		}
+	}
 
 	pl_sprite_.setPosition( pl_position_ );
 

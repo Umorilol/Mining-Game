@@ -96,6 +96,9 @@ void GameManager::update() {
 	// looping through every one at the same time.
 	for (auto& i : mineral_tile_vector_) {
 		if (guy_.collision(i->tile_) && sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !i->mined_) {
+			// Add to inventory
+			guy_.inventory_.emplace_back(i->mineral_);
+			// Start timer and set mined texture
 			m_time_ = update_clock_.restart();
 			i->sprite_.setTexture(mined_texture);
 			guy_.xp_ += i->mineral_.type_.xp_;

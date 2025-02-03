@@ -2,6 +2,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 
+#include "Item.h"
+
 // Parent class for mineral
 
 struct MineralType {
@@ -11,7 +13,7 @@ struct MineralType {
 	int timer_multiplier_;
 };
 
-class Mineral {
+class Mineral : public Item{
 public:
 	MineralType type_;
 

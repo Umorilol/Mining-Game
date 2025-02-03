@@ -1,6 +1,7 @@
 #pragma once
 #include<SFML\Graphics.hpp>
 #include "Mineral.h"
+#include"Item.h"
 
 class Player
 {
@@ -11,13 +12,10 @@ public:
 	float xp_;
 	int level_;
 	float next_level_;
+	std::vector<Item> inventory_;
+
 	Player();
 	void update( const float dt );
 	bool collision( const sf::RectangleShape& mineral );
 };
 
-class InventoryItem : public Player {
-public:
-	Mineral mineral_;
-	int stack_num_;
-};
